@@ -35,7 +35,7 @@ public class Pos {
   private int positionLength;
   private String expression;
   private Node node;
-  
+
   // index_expression
   public static class ExpressionIndex {
     final static int TERM = 0;

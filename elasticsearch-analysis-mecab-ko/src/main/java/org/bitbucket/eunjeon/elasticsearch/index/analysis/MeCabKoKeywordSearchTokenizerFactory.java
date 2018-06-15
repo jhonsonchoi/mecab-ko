@@ -43,7 +43,10 @@ public class MeCabKoKeywordSearchTokenizerFactory extends MeCabKoTokenizerFactor
   }
 
   @Override
-  protected void setPosAppender() {
+  protected void setPosAppender(IndexSettings indexSettings,
+                                Environment env,
+                                String name,
+                                Settings settings) {
     posAppender = new KeywordSearchPosAppender(option);
   }
 }

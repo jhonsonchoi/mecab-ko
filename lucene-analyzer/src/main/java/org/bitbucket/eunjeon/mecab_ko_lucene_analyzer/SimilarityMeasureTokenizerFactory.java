@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.bitbucket.eunjeon.mecab_ko_lucene_analyzer;
 
+import org.apache.lucene.analysis.CharArraySet;
+
 import java.util.Map;
 
 /**

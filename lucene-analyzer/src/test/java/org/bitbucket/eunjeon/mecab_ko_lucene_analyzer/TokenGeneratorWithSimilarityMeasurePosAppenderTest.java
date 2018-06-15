@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.bitbucket.eunjeon.mecab_ko_lucene_analyzer;
 
+import org.apache.lucene.analysis.CharArraySet;
 import org.chasen.mecab.Node;
 import org.junit.After;
 import org.junit.Before;
@@ -50,7 +51,7 @@ public class TokenGeneratorWithSimilarityMeasurePosAppenderTest
     });
 
     TokenGenerator generator = new TokenGenerator(
-        new SimilarityMeasurePosAppender(option), TokenGenerator.NO_DECOMPOUND, node);
+        new SimilarityMeasurePosAppender(option, CharArraySet.EMPTY_SET), TokenGenerator.NO_DECOMPOUND, node);
     List<Pos> tokens;
     tokens = generator.getNextEojeolTokens();
     assertEquals("[진달래/NNG/null/1/1/0/3]", tokens.toString());
@@ -76,7 +77,7 @@ public class TokenGeneratorWithSimilarityMeasurePosAppenderTest
     });
 
     TokenGenerator generator = new TokenGenerator(
-        new SimilarityMeasurePosAppender(option), TokenGenerator.NO_DECOMPOUND, node);
+        new SimilarityMeasurePosAppender(option, CharArraySet.EMPTY_SET), TokenGenerator.NO_DECOMPOUND, node);
 
     List<Pos> tokens;
     tokens = generator.getNextEojeolTokens();
@@ -118,7 +119,7 @@ public class TokenGeneratorWithSimilarityMeasurePosAppenderTest
     });
 
     TokenGenerator generator = new TokenGenerator(
-        new SimilarityMeasurePosAppender(option), TokenGenerator.NO_DECOMPOUND, node);
+        new SimilarityMeasurePosAppender(option, CharArraySet.EMPTY_SET), TokenGenerator.NO_DECOMPOUND, node);
 
     List<Pos> tokens;
     tokens = generator.getNextEojeolTokens();
@@ -159,7 +160,7 @@ public class TokenGeneratorWithSimilarityMeasurePosAppenderTest
     });
 
     TokenGenerator generator = new TokenGenerator(
-        new SimilarityMeasurePosAppender(option), TokenGenerator.NO_DECOMPOUND, node);
+        new SimilarityMeasurePosAppender(option, CharArraySet.EMPTY_SET), TokenGenerator.NO_DECOMPOUND, node);
 
     List<Pos> tokens;
     tokens = generator.getNextEojeolTokens();
@@ -241,7 +242,7 @@ public class TokenGeneratorWithSimilarityMeasurePosAppenderTest
     });
 
     TokenGenerator generator = new TokenGenerator(
-        new SimilarityMeasurePosAppender(option),
+        new SimilarityMeasurePosAppender(option, CharArraySet.EMPTY_SET),
         TokenGenerator.NO_DECOMPOUND, node);
 
     List<Pos> tokens;

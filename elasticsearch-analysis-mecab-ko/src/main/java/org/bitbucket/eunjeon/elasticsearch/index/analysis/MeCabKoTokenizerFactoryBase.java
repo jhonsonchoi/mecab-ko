@@ -45,14 +45,17 @@ public abstract class MeCabKoTokenizerFactoryBase extends AbstractTokenizerFacto
     setMeCabArgs(settings);
     setCompoundNounMinLength(settings);
     setUseAdjectiveAndVerbOriginalForm(settings);
-    setPosAppender();
+    setPosAppender(indexSettings, environment, name, settings);
   }
 
   protected void setDefaultOption() {
     return;
   }
 
-  abstract protected void setPosAppender();
+  abstract protected void setPosAppender(IndexSettings indexSettings,
+                                         Environment env,
+                                         String name,
+                                         Settings settings);
 
   protected void setMeCabArgs(Settings settings) {
     option.mecabArgs = settings.get("mecab_args", option.mecabArgs);

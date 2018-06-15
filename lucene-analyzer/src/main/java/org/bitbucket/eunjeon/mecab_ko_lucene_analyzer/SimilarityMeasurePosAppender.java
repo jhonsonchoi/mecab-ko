@@ -19,7 +19,11 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.Logger;
+import org.apache.lucene.analysis.CharArraySet;
 import org.bitbucket.eunjeon.mecab_ko_lucene_analyzer.PosIdManager.PosId;
+import org.elasticsearch.common.logging.ESLoggerFactory;
 
 /**
  * 문서 유사도 측정용 tokenizer를 위한 PosAppender.
@@ -27,6 +31,7 @@ import org.bitbucket.eunjeon.mecab_ko_lucene_analyzer.PosIdManager.PosId;
  * @author bibreen <bibreen@gmail.com>
  */
 public class SimilarityMeasurePosAppender extends PosAppender {
+
   static public Set<Appendable> appendableSet;
 
   static {
@@ -46,6 +51,7 @@ public class SimilarityMeasurePosAppender extends PosAppender {
     appendableSet.add(new Appendable(PosId.XPN, PosId.UNKNOWN));
 
     // 체언(N*) + 명사 파생 접미사(XSN)
+/*
     appendableSet.add(new Appendable(PosId.NNG, PosId.XSN));
     appendableSet.add(new Appendable(PosId.NNP, PosId.XSN));
     appendableSet.add(new Appendable(PosId.NNB, PosId.XSN));
@@ -54,6 +60,7 @@ public class SimilarityMeasurePosAppender extends PosAppender {
     appendableSet.add(new Appendable(PosId.NR, PosId.XSN));
     appendableSet.add(new Appendable(PosId.COMPOUND, PosId.XSN));
     appendableSet.add(new Appendable(PosId.UNKNOWN, PosId.XSN));
+*/
 
     // 외국어(SL), 숫자(SN), 기호(SY)는 모두 연결
     appendableSet.add(new Appendable(PosId.SL, PosId.SN));
@@ -66,6 +73,30 @@ public class SimilarityMeasurePosAppender extends PosAppender {
 
   public SimilarityMeasurePosAppender(TokenizerOption option) {
     super(option);
+  }
+
+  public boolean isNumeric(String s) {
+    if (s == null) return false;
+
+    for (int i = 0; i < s.length(); i++) {
+      if (!Character.isDigit(s.charAt(i))) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public boolean isAlpha(String s) {
+    if (s == null) return false;
+
+    for (int i = 0; i < s.length(); i++) {
+      if (!Character.isLetter(s.charAt(i))) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   @Override
@@ -90,6 +121,7 @@ public class SimilarityMeasurePosAppender extends PosAppender {
       case NNP:
       case NNBC:
       case NR:
+      case XSN:
         return false;
       default:
         return true;

@@ -15,10 +15,14 @@
  ******************************************************************************/
 package org.bitbucket.eunjeon.elasticsearch.index.analysis;
 
+import org.apache.lucene.analysis.CharArraySet;
 import org.bitbucket.eunjeon.mecab_ko_lucene_analyzer.*;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
+import org.elasticsearch.index.analysis.Analysis;
+
+import java.util.List;
 
 /**
  * 문서 유사도 측적용 tokenizer 팩토리 생성자. 다음과 같은 파라미터를 받는다. (실험적인)
@@ -29,11 +33,15 @@ import org.elasticsearch.index.IndexSettings;
  * @author bibreen <bibreen@gmail.com>
  */
 public class MeCabKoSimilarityMeasureTokenizerFactory extends MeCabKoTokenizerFactoryBase {
+  private static final String UNIT_WORDS_KEY = "unit_words";
+  private static final String UNIT_WORDS_PATH_KEY = UNIT_WORDS_KEY + "_path";
+
   public MeCabKoSimilarityMeasureTokenizerFactory(IndexSettings indexSettings,
-                                                  Environment environment,
+                                                  Environment env,
                                                   String name,
                                                   Settings settings) {
-    super(indexSettings, environment, name, settings);
+    super(indexSettings, env, name, settings);
+
   }
 
   protected void setDefaultOption() {
@@ -42,7 +50,10 @@ public class MeCabKoSimilarityMeasureTokenizerFactory extends MeCabKoTokenizerFa
   }
 
   @Override
-  protected void setPosAppender() {
+  protected void setPosAppender(IndexSettings indexSettings,
+                                Environment env,
+                                String name,
+                                Settings settings) {
     posAppender = new SimilarityMeasurePosAppender(option);
   }
 }

@@ -38,7 +38,10 @@ public class MeCabKoStandardTokenizerFactory extends MeCabKoTokenizerFactoryBase
   }
 
   @Override
-  protected void setPosAppender() {
+  protected void setPosAppender(IndexSettings indexSettings,
+                                Environment env,
+                                String name,
+                                Settings settings) {
     posAppender = new StandardPosAppender(option);
   }
 }
